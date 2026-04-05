@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lead Finder Tool</title>
+</head>
+<body>
+
+<h2>Lead Generator</h2>
+
+<input type="text" id="keyword" placeholder="Enter keyword">
+<br><br>
+
+<input type="text" id="country" placeholder="Enter country">
+<br><br>
+
+<input type="number" id="limit" placeholder="Number of leads">
+<br><br>
+
+<button onclick="getLeads()">Get Leads</button>
+
+<pre id="result"></pre>
+
+<script>
+async function getLeads() {
+  let keyword = document.getElementById("keyword").value;
+  let country = document.getElementById("country").value;
+  let limit = document.getElementById("limit").value;
+
+  let res = await fetch("https://your-render-url.onrender.com/leads", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({keyword, country, limit})
+  });
+
+  let data = await res.json();
+  document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+}
+</script>
+
+</body>
+</html>
